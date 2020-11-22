@@ -27,6 +27,14 @@ func main() {
 		Level: compress.LevelBestSpeed, // 1
 	}))
 
+	// Static files
+	app.Static("/", "./public")
+
+	//// Favicon
+	//app.Use(favicon.New(favicon.Config{
+	//	File: "./public/favicon.ico",
+	//}))
+
 	// Match any route
 	app.Use(func(c *fiber.Ctx) error {
 		log.Printf("First handler")
@@ -58,7 +66,9 @@ func main() {
 	log.Fatal(app.Listen(":3000"))
 }
 
+// Para servir o html, renomeie o arquivo /public/index.html1 para .html
 func home(c *fiber.Ctx) error {
+	log.Printf("Carregando home handler...")
 	return c.SendString("Home, sweet home!")
 }
 
